@@ -53,11 +53,8 @@ open class Client: NSObject {
         var components = cmpts
         components.scheme = components.scheme == "https" ? "wss" : "ws"
 
-        // Simple incrementing generator - can't use ++, that operator is deprecated!
-        var currentRequestId = 0
         requestIdGenerator = {
-            currentRequestId += 1
-            return RequestId(value: currentRequestId)
+            return RequestId(value: Int(Date().timeIntervalSince1970))
         }
 
         self.applicationId = applicationId ?? Parse.validatedCurrentConfiguration().applicationId!
